@@ -1,0 +1,9 @@
+* Trusk_CLI
+** Getting started:
+   #+BEGIN_SRC bash
+   npm install
+   # Start a redis server in a docker container
+   docker run -p"6379:6379" --name truskCLI-redis redis-server --appendonly yes
+   # Start the CLI
+   npm start
+   #+END_SRC

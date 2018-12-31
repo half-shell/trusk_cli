@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-      "start": "node index.js"
+    "start": "node index.js",
+    "format": "npx prettier --write index.js src/*.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.5.3",
     "inquirer": "^6.2.1",
+    "prettier": "^1.15.3",
     "redis": "^2.8.0"
   }
 }

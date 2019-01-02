@@ -38,31 +38,30 @@ function welcome() {
     console.log('Welcome to trusk CLI!\n')
 }
 
-async function setupForm(client, forms, backup) {
+async function setupForm(forms, backup) {
     const keys = Object.keys(backup)
-    return {
-        toAsk: forms.filter(f => keys.indexOf(Object.keys(f)[0]) < 0),
-        backedUp: forms.filter(f => keys.indexOf(Object.keys(f)[0]) >= 0)
-    }
-}
-
-function inflateBackup(backup, forms) {
-    return Object.keys(backup).reduce((acc, k) => {
+    const toAsk = forms.filter(f => keys.indexOf(Object.keys(f)[0]) < 0)
+    const backedUp = Object.keys(backup).reduce((acc, k) => {
         //As hacky as it can be.
         const value = forms
+            .filter(f => keys.indexOf(Object.keys(f)[0]) >= 0)
             .filter(f => Object.keys(f)[0] == k)[0]
             [k].inflate(backup[k])
         return Object.assign(acc, {
             [k]: value
         })
     }, {})
+
+    return {
+        toAsk,
+        backedUp
+    }
 }
 
 module.exports = {
     setupForm,
     recursivePromptAsync,
     welcome,
-    inflateBackup,
     sequentialPromptAsync,
     gov
 }

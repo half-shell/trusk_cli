@@ -102,12 +102,8 @@ async function main(questions) {
         utils.welcome()
 
         const backup = await serialize.restore(client)
-        const forms = await utils.setupForm(client, questions, backup)
-        const answers = await ask(
-            client,
-            forms.toAsk,
-            utils.inflateBackup(backup, forms.backedUp)
-        )
+        const forms = await utils.setupForm(questions, backup)
+        const answers = await ask(client, forms.toAsk, forms.backedUp)
 
         //Cache can be emptied
         client.flushall()

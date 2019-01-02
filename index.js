@@ -28,10 +28,10 @@ const questions = [
     {
         t_employees: {
             prompt: () =>
-                utils.recursivePromptAsync(
-                    forms.addEmployees,
+                utils.sequentialPromptAsync(
+                    forms.addEmployee,
+                    "Rentrer le nombre d'employés à renseigner: ",
                     (answers, acc) => [...acc, answers],
-                    answers => answers.addEmployee,
                     []
                 ),
             serialization: employees =>
@@ -44,10 +44,10 @@ const questions = [
     {
         t_trucks: {
             prompt: () =>
-                utils.recursivePromptAsync(
-                    forms.addTrucks,
+                utils.sequentialPromptAsync(
+                    forms.addTruck,
+                    'Rentrer le nombre de camions à renseigner: ',
                     (answers, acc) => [...acc, answers],
-                    answers => answers.addTruck,
                     []
                 ),
             serialization: trucks =>

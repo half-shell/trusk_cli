@@ -1,5 +1,4 @@
 'use strict'
-const inquirer = require('inquirer')
 const Promise = require('bluebird')
 
 //TODO (brick): Make it so the recursive prompt gets a way to validate input
@@ -13,7 +12,23 @@ async function recursivePromptAsync(forms, push, cond, acc) {
     }
 }
 
-//Ugly hack
+async function sequentialPromptAsync(forms, message, push, acc) {
+    const n = await require('./forms').askLoop(message)
+    return sequentialPrompt(forms, 1, n.askLoop, push, acc)
+}
+
+async function sequentialPrompt(forms, i, n, push, acc) {
+    const answers = await forms()
+    acc = push(answers, acc)
+    if (i < n) {
+        i++
+        return sequentialPrompt(forms, i, n, push, acc)
+    } else {
+        return acc
+    }
+}
+
+// Ugly hack
 // Get Only Value
 function gov(o) {
     return o[Object.keys(o)[0]]
@@ -48,5 +63,6 @@ module.exports = {
     recursivePromptAsync,
     welcome,
     inflateBackup,
+    sequentialPromptAsync,
     gov
 }

@@ -15,6 +15,8 @@ const isAllowedVolume = input => {
     return Number(input) > 1 && Number(input) < 26
 }
 
+const isInt = input => Number.isInteger(Number(input))
+
 //This is justa stub since the confirm 'type' from inqurier
 //is enough make it work
 const isConfirm = input => true
@@ -50,5 +52,6 @@ module.exports = {
     isConfirm,
     isAllowedVolume,
     validateAsync,
-    validateBatch
+    validateBatch,
+    isInt
 }

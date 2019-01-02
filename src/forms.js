@@ -51,6 +51,10 @@ async function employeePrompt() {
     ])
 }
 
+async function addEmployee() {
+    return validate.validateAsync(employeePrompt, validate.isAlpha)
+}
+
 async function addEmployees() {
     const forms = [
         {
@@ -66,7 +70,7 @@ async function addEmployees() {
     return validate.validateBatch(forms)
 }
 
-async function addTruck() {
+async function addTruckPrompt() {
     return validate.validateAsync(
         () =>
             inquirer.prompt([
@@ -100,6 +104,7 @@ async function truckVolume() {
         }
     ])
 }
+
 async function addTrucks() {
     const forms = [
         {
@@ -111,7 +116,7 @@ async function addTrucks() {
             validator: validate.isAllowedVolume
         },
         {
-            prompt: addTruck,
+            prompt: addTruckPrompt,
             validator: validate.isConfirm
         }
     ]
@@ -119,9 +124,39 @@ async function addTrucks() {
     return validate.validateBatch(forms)
 }
 
+async function addTruck() {
+    return validate.validateBatch([
+        {
+            prompt: truckType,
+            validator: validate.isAlpha
+        },
+        {
+            prompt: truckVolume,
+            validator: validate.isAllowedVolume
+        }
+    ])
+}
+
+async function askLoop(message) {
+    return validate.validateAsync(
+        () =>
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'askLoop',
+                    message
+                }
+            ]),
+        validate.isInt
+    )
+}
+
 module.exports = {
     addEmployees,
+    addEmployee,
     addTrucks,
+    addTruck,
     addCompanyName,
-    addTrusker
+    addTrusker,
+    askLoop
 }

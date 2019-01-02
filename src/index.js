@@ -4,6 +4,5 @@ const forms = require('./forms')
 
 module.exports = {
     validate,
-    forms,
-    serialize
+    forms
 }
